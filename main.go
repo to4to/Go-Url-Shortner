@@ -1,10 +1,17 @@
 package main
 
+import "time"
 
-
-type request struct{
-
+type request struct {
+	URL string
+	CustomShort string
+	Expiry time.Duration
 }
 
-
-type response struct{}
+type response struct {
+	URL
+	CustomShort
+	Expiry
+	XRateRemaining
+	XRateLimitReset
+}
