@@ -1,5 +1,7 @@
 package main
-
+import (
+"github.com/gofiber/fiberv2"
+)
 
 func main(){
 
