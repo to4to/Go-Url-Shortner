@@ -11,5 +11,5 @@ func main() {
 
 func setupRoutes(app *fiber.App) {
 	app.Get("/:url",routes.ResolveURL)
-	app.Get(("/api/v1",rouroutes.ShortenURL))
+	app.Get("/api/v1",rouroutes.ShortenURL)
 }
