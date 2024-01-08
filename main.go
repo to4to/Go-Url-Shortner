@@ -17,7 +17,7 @@ func setupRoutes(app *fiber.App) {
 
 func main(){
 
-godotenv.Load()
+err:= godotenv.Load()
 
 
 app:=fiber.New()
