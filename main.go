@@ -1,7 +1,10 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
 	"github.com/to4to/go-url-shortner/api/routes"
 )
@@ -19,7 +22,11 @@ func main(){
 
 err:= godotenv.Load()
 
+if err!=nil{
+	fmt.Println(err)
+}
 
 app:=fiber.New()
 
+app.Use(logger.New())
 }
