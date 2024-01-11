@@ -27,7 +27,9 @@ func ShortenURL(c *fiber.Ctx)error{
 body:=new(request)
 
 
-body.p
+if err:=c.BodyParser(&body); err!=nil{
+	return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error":"cannot parse JSON"})
+}
 
 
 
