@@ -2,11 +2,15 @@ package helpers
 
 
 
-func EnforceHTTP() string{
+func EnforceHTTP(url string) string{
+if url[:4]!="http"{
+	return "http://"+url
+}
+return url
 
 }
 
 
 
 
-func RemoveDomainError(url string){}
+func RemoveDomainError(url string) bool{}
