@@ -1,8 +1,10 @@
 package routes
 
 import (
+	"os"
 	"time"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
 	"github.com/to4to/go-url-shortner/api/database"
 	"github.com/to4to/go-url-shortner/api/helpers"
@@ -40,7 +42,7 @@ defer r2.Close()
 val,err:=r2.Get(database.Ctx,c.IP().Result())
 
 if err ==redis.Nil{
-	_=r2.Ser()
+	_=r2.Set(database.Ctx,c.IP(),os.Getenv("API_QUOTA"),30*60*time.Second).Err()
 }
 
 
