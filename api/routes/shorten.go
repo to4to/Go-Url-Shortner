@@ -49,4 +49,3 @@ func ShortenURL(c *fiber.Ctx) error {
 	body.URL = helpers.EnforceHTTP(body.URL)
 
 }
-
