@@ -50,6 +50,3 @@ func ShortenURL(c *fiber.Ctx) error {
 
 }
 
-func ResolveURL() {
-
-}
