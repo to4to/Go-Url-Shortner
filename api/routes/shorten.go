@@ -2,6 +2,7 @@ package routes
 
 import (
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/go-redis/redis/v8"
@@ -39,10 +40,14 @@ r2:= database.CreateClient(1)
 
 defer r2.Close()
 
-val,err:=r2.Get(database.Ctx,c.IP().Result())
+val,err:=r2.Get(database.Ctx,c.IP()).Result()
 
 if err ==redis.Nil{
 	_=r2.Set(database.Ctx,c.IP(),os.Getenv("API_QUOTA"),30*60*time.Second).Err()
+} else{
+	val,_=r2.Get(database.Ctx,c.IP()).Result()
+	valInt,_:=strconv.Atoi(val)
+
 }
 
 
