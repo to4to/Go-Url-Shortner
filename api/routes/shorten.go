@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/to4to/go-url-shortner/api/database"
 	"github.com/to4to/go-url-shortner/api/helpers"
 )
 
@@ -32,9 +33,15 @@ func ShortenURL(c *fiber.Ctx) error {
 	//implementing Rate Limit
        
 
+r2:= database.CreateClient(1)
 
+defer r2.Close()
 
+val,err:=r2.Get(database.Ctx,c.IP().Result())
 
+if err ==redis.Nil{
+	_=r2.Ser()
+}
 
 
 
