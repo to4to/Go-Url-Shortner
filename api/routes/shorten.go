@@ -34,33 +34,28 @@ func ShortenURL(c *fiber.Ctx) error {
 	}
 
 	//implementing Rate Limit
-       
 
-r2:= database.CreateClient(1)
+	r2 := database.CreateClient(1)
 
-defer r2.Close()
+	defer r2.Close()
 
-val,err:=r2.Get(database.Ctx,c.IP()).Result()
+	val, err := r2.Get(database.Ctx, c.IP()).Result()
 
-if err ==redis.Nil{
-	_=r2.Set(database.Ctx,c.IP(),os.Getenv("API_QUOTA"),30*60*time.Second).Err()
-} else{
-	val,_=r2.Get(database.Ctx,c.IP()).Result()
-	valInt,_:=strconv.Atoi(val)
+	if err == redis.Nil {
+		_ = r2.Set(database.Ctx, c.IP(), os.Getenv("API_QUOTA"), 30*60*time.Second).Err()
+	} else {
+		val, _ = r2.Get(database.Ctx, c.IP()).Result()
+		valInt, _ := strconv.Atoi(val)
 
+		if valInt <= 0 {
 
-	if valInt<=0{
+			limit, _ := r2.TTL(database.Ctx, c.IP()).Result()
 
-		limit,_:=r2.TTL(database.Ctx,c.IP()).Result()
+			return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{"error": "Rate Limit Exceeded",
+				"rate_limit_rest": limit / time.Nanosecond / time.Minute})
+		}
 
-		return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{"error":"Rate Limit Exceeded",
-	"rate_limit_rest":limit/time.Nanosecond/time.Minute})
 	}
-
-}
-
-
-
 
 	//check input is actual URl or not
 
@@ -78,5 +73,7 @@ if err ==redis.Nil{
 	//enforce https,ssl
 
 	body.URL = helpers.EnforceHTTP(body.URL)
+
+	r2.Decr(database.Ctx, c.IP())
 
 }
