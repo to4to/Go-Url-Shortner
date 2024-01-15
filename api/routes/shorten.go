@@ -9,6 +9,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/to4to/go-url-shortner/api/database"
 	"github.com/to4to/go-url-shortner/api/helpers"
+	"github.com/asaskevich/govalidator"
+
 )
 
 type request struct {
