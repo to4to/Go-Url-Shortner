@@ -5,12 +5,12 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/asaskevich/govalidator"
 	"github.com/go-redis/redis/v8"
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/uuid"
 	"github.com/to4to/go-url-shortner/api/database"
 	"github.com/to4to/go-url-shortner/api/helpers"
-	"github.com/asaskevich/govalidator"
-
 )
 
 type request struct {
@@ -75,6 +75,14 @@ func ShortenURL(c *fiber.Ctx) error {
 	//enforce https,ssl
 
 	body.URL = helpers.EnforceHTTP(body.URL)
+
+	var   id string
+
+	if body.CustomShort == "" {
+		id = uuid.New().String()[:6]
+	}else{
+		id=body.CustomShort
+	}
 
 	r2.Decr(database.Ctx, c.IP())
 
