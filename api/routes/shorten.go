@@ -76,13 +76,27 @@ func ShortenURL(c *fiber.Ctx) error {
 
 	body.URL = helpers.EnforceHTTP(body.URL)
 
-	var   id string
+	var id string
 
 	if body.CustomShort == "" {
 		id = uuid.New().String()[:6]
-	}else{
-		id=body.CustomShort
+	} else {
+		id = body.CustomShort
 	}
+
+	r := database.CreateClient(0)
+	defer r.Close()
+//checking if previous exists or not 
+  val,_=r.Get(database.Ctx,id).Result()
+
+	if val!=""{
+
+		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error":"URL Custon Short is Already In USE"})
+	}
+  
+
+
+
 
 	r2.Decr(database.Ctx, c.IP())
 
