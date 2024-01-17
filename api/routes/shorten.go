@@ -99,7 +99,7 @@ func ShortenURL(c *fiber.Ctx) error {
 	}
 
 
-	err= r.Set(database.Ctx,id,body.URL,body)
+	err= r.Set(database.Ctx,id,body.URL,body.Expiry*3600*time.Second)
 
 	r2.Decr(database.Ctx, c.IP())
 
