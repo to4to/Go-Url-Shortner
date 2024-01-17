@@ -86,17 +86,17 @@ func ShortenURL(c *fiber.Ctx) error {
 
 	r := database.CreateClient(0)
 	defer r.Close()
-//checking if previous exists or not 
-  val,_=r.Get(database.Ctx,id).Result()
+	//checking if previous exists or not
+	val, _ = r.Get(database.Ctx, id).Result()
 
-	if val!=""{
+	if val != "" {
 
-		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error":"URL Custon Short is Already In USE"})
+		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "URL Custon Short is Already In USE"})
 	}
-  
 
-
-
+	if body.Expiry == 0 {
+		body.Expiry = 24
+	}
 
 	r2.Decr(database.Ctx, c.IP())
 
