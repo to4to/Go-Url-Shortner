@@ -128,4 +128,7 @@ resp:=response{
 
 	resp.CustomShort=os.Getenv("DOMAIN")+"/"+id
 
+
+	return c.Status(fiber.StatusOK).JSON(resp)
+
 }
