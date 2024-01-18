@@ -104,6 +104,11 @@ func ShortenURL(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Unable To Connect To Server"})
 	}
 
+resp:=response{
+	URL:
+}
+
+
 	r2.Decr(database.Ctx, c.IP())
 
 }
