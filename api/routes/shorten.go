@@ -120,4 +120,7 @@ resp:=response{
 
 	resp.XRateRemaining,_=strconv.Atoi(val)
 
+
+	ttl,_:=r2.TTL(database.Ctx,c.IP()).Result()
+
 }
