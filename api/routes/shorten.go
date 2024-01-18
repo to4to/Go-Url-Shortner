@@ -126,6 +126,6 @@ resp:=response{
 
 	resp.XRateLimitReset=ttl/time.Nanosecond/time.Minute
 
-	resp.CustomShort=os.Getenv()
+	resp.CustomShort=os.Getenv("DOMAIN")+"/"+id
 
 }
