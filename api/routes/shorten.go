@@ -105,11 +105,11 @@ func ShortenURL(c *fiber.Ctx) error {
 	}
 
 resp:=response{
-	URL:
-	CustomShort:
-	Expiry: 
-	XRateRemaining:
-	XRateLimitReset: ,
+	URL: body.URL,
+	CustomShort:"",
+	Expiry: body.Expiry,
+	XRateRemaining: 10,
+	XRateLimitReset:30 ,//30 minutes
 }
 
 
