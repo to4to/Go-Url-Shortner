@@ -1,4 +1,4 @@
-module github.com/to4to/go-url-shortner
+module github.com/to4to/go-url-shortner/api
 
 go 1.21.1
 
