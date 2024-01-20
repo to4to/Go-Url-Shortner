@@ -28,4 +28,7 @@ func main() {
 	app.Use(logger.New())
 	setupRoutes(app)
 	log.Fatal(app.Listen(os.Getenv("APP_PORT")))
+
+	app.Listen(":3000")
+
 }
