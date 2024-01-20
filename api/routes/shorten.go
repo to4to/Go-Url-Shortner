@@ -98,11 +98,18 @@ func ShortenURL(c *fiber.Ctx) error {
 		body.Expiry = 24
 	}
 
-	err = r.Set(database.Ctx, id, body.URL, body.Expiry*3600*time.Second)
+	// err = r.Set(database.Ctx, id, body.URL, body.Expiry*3600*time.Second)
 
-	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Unable To Connect To Server"})
-	}
+	// if err != nil {
+	// 	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Unable To Connect To Server"})
+	// }
+
+
+	statusCmd := r.Set(database.Ctx, id, body.URL, body.Expiry*3600*time.Second)
+err = statusCmd.Err()
+if err != nil {
+    return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Unable To Connect To Server"})
+}
 
 resp:=response{
 	URL: body.URL,
