@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/joho/godotenv"
-	"github.com/to4to/go-url-shortner/api/routes"
+	"github.com/to4to/go-url-shortner/routes"
 )
 
 func setupRoutes(app *fiber.App) {
@@ -31,4 +31,5 @@ func main() {
 
 	app.Listen(":3000")
 
+	
 }
